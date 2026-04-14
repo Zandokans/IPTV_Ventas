@@ -1,76 +1,102 @@
+/* ============================================
+   VARIABLES DE COLORES Y TEMAS GLOBALES
+   ============================================ */
 :root {
+    /* Color de fondo principal */
     --bg: #f4f8ff;
+    /* Color del texto general */
     --text: #1a1a1a;
+    /* Color del texto desaturado */
     --muted: #373737;
+    /* Color primario de la marca (azul) */
     --primary: #005f99;
+    /* Color del texto sobre fondo primario */
     --primary-text: #ffffff;
+    /* Color de superficie secundaria */
     --surface: #ebf3ff;
+    /* Color de tarjetas */
     --card: #ffffff;
+    /* Color de bordes */
     --border: #c6d6eb;
+    /* Color de botones al pasar el mouse */
     --button-hover: #004f84;
+    /* Color de enfoque/foco */
     --focus: #ffb703;
+    /* Color de acento secundario */
     --accent: #0092d1;
 }
 
+/* Selector universal - aplica a todos los elementos */
 * {
     box-sizing: border-box;
 }
 
+/* ============================================
+   ESTILOS BASE DEL DOCUMENTO
+   ============================================ */
 body {
     font-family: "Segoe UI", Arial, sans-serif;
     margin: 0;
     padding: 0;
+    /* Fondo con gradiente degradado azul */
     background: linear-gradient(135deg, #e7f1ff 0%, #f8fbff 100%);
-    color: var(--text);
+/* ============================================
+   ESTILOS DEL ENCABEZADO
+   ============================================ */
+header {
+    /* Gradiente de colores primarios */r: var(--text);
     line-height: 1.5;
 }
+/* Título principal - responsive con clamp */
+h1 {
+    margin: 0 0 12px;
+    /* Tamaño que se adapta entre 2rem y 3rem según el viewport */
+    font-size: clamp(2rem, 4vw, 3rem);
+}
 
-header {
-    background: linear-gradient(135deg, var(--primary), #007acc);
-    color: var(--primary-text);
-    text-align: center;
+/* Párrafo dentro del encabezado */    text-align: center;
     padding: 60px 20px;
 }
 
 h1 {
     margin: 0 0 12px;
-    font-size: clamp(2rem, 4vw, 3rem);
-}
-
-header p {
-    font-size: 1.2rem;
-}
-
+/* ============================================
+   ESTILOS DE SECCIONES
+   ============================================ */
 section {
+    /* Ancho máximo para evitar contenido demasiado ancho */
     max-width: 1200px;
     margin: 20px auto;
     padding: 30px;
     background-color: var(--card);
     border-radius: 12px;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
-    border: 1px solid var(--border);
-}
-
+/* Encabezados de nivel 2 - color primario */
 h2 {
     color: var(--primary);
 }
 
+/* Texto general y elementos de lista */
 p, li {
     color: var(--muted);
 }
 
+/* Estilos de listas */
 ul {
     list-style-type: none;
     padding: 0;
 }
 
+/* Elementos de lista con borde izquierdo coloreado */
 li {
     margin: 10px 0;
     padding: 10px;
     background-color: #ffffff;
-    border-left: 5px solid var(--accent);
+    /* Borde izquierdo como decoración visual */
+    color: var(--muted);
 }
-
+/* ============================================
+   SECCIÓN DE PRECIOS - LAYOUT Y TARJETAS
+   ============================================ */
 .pricing {
     display: flex;
     justify-content: center;
@@ -78,6 +104,7 @@ li {
     flex-wrap: wrap;
 }
 
+/* Tarjeta individual de plan de precios */
 .plan {
     background: linear-gradient(180deg, #ffffff 0%, #eef5ff 100%);
     padding: 24px;
@@ -86,21 +113,19 @@ li {
     text-align: center;
     width: min(260px, 100%);
     border: 1px solid var(--border);
+    /* Sombra inicial */
     box-shadow: 0 12px 24px rgba(0, 92, 152, 0.16);
+    /* Transición suave para efectos hover */
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.plan:hover,
-.plan:focus-within {
-    transform: translateY(-6px);
-    box-shadow: 0 22px 30px rgba(0, 92, 152, 0.26);
-}
-
+/* Encabezado de plan */
 .plan h3 {
     color: var(--primary);
     margin-bottom: 0.75rem;
 }
 
+/* Precio de la tarjeta - destacado con tamaño grande */
 .plan .price {
     font-size: 2rem;
     font-weight: 700;
@@ -108,6 +133,9 @@ li {
     margin: 0.25rem 0 0.75rem;
 }
 
+/* ============================================
+   ESTILOS DE BOTONES
+   ============================================ */
 a.btn,
 button.btn {
     display: inline-block;
@@ -120,25 +148,27 @@ button.btn {
     text-decoration: none;
     cursor: pointer;
     font-weight: 700;
+    /* Transiciones suaves */
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
+/* Estado hover para botones */
 a.btn:hover,
 button.btn:hover {
     background-color: var(--button-hover);
     transform: translateY(-1px);
 }
 
-a.btn:focus,
-button.btn:focus {
-    outline: 3px solid var(--focus);
-    outline-offset: 2px;
-}
+/* Estado focus para accesibilidad */}
 
+/* ============================================
+   SECCIÓN GALERÍA DE PASOS
+   ============================================ */
 #gallery {
     padding: 20px 0;
 }
 
+/* Contenedor de galería con grid responsive */
 #gallery .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -146,6 +176,7 @@ button.btn:focus {
     align-items: start;
 }
 
+/* Elemento de figura */
 #gallery figure {
     margin: 0;
     background-color: #fff;
@@ -155,19 +186,17 @@ button.btn:focus {
     box-shadow: 0 8px 16px rgba(0,0,0,0.08);
 }
 
+/* Imágenes responsivas en galería */
 #gallery img {
     width: 100%;
     height: auto;
     display: block;
 }
 
-#gallery figcaption {
-    color: var(--muted);
-    padding: 12px;
-    font-size: 0.93rem;
-    text-align: center;
-}
-
+/* Leyenda de figures */}
+/* ============================================
+   SECCIÓN DESTACADA (COMPATIBILIDAD)
+   ============================================ */
 .highlight-box {
     background: linear-gradient(135deg, #00a8ff 0%, #24c6dc 100%);
     color: white;
@@ -175,10 +204,12 @@ button.btn:focus {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
 }
 
+/* Encabezado en sección destacada */
 .highlight-box h2 {
     color: #ffffff;
 }
 
+/* Grid para listado de compatibilidad */
 .compatibility-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -186,6 +217,7 @@ button.btn:focus {
     margin-top: 18px;
 }
 
+/* Elementos del listado de compatibilidad */
 .compatibility-list div {
     padding: 18px 14px;
     background: rgba(255, 255, 255, 0.16);
@@ -193,20 +225,24 @@ button.btn:focus {
     border-radius: 14px;
     font-weight: 700;
     text-align: center;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+    /* Efecto de brillo interior */
 }
-
+/* ============================================
+   SECCIÓN EXPERIENCIA (HISTORIA Y BENEFICIOS)
+   ============================================ */
 .experience-box {
     background: linear-gradient(135deg, #fff9ed 0%, #fff3d6 100%);
     border: 1px solid #ffd687;
     color: #1c1c1c;
 }
 
+/* Encabezado en sección experiencia */
 .experience-box h2 {
     color: #b45309;
     margin: 0;
 }
 
+/* Contenedor superior con ícono y título */
 .experience-top {
     display: flex;
     gap: 18px;
@@ -214,6 +250,7 @@ button.btn:focus {
     margin-bottom: 18px;
 }
 
+/* Ícono de insignia/trofeo */
 .experience-badge {
     width: 80px;
     min-width: 80px;
@@ -223,12 +260,7 @@ button.btn:focus {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
-.experience-subtitle {
-    margin: 8px 0 0;
-    font-size: 1rem;
-    color: #475569;
-}
-
+/* Grid para tarjetas de experiencia */
 .experience-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -237,9 +269,63 @@ button.btn:focus {
     margin-top: 20px;
 }
 
+/* Tarjeta individual de experiencia */
 .experience-card {
     padding: 22px;
     background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 18px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(229, 159, 14, 0.16);
+}
+
+/* Número destacado en tarjeta */
+.experience-number {
+    margin: 0 0 14px;
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: #d97706;
+}
+
+/* Encabezado de tarjeta */
+.experience-card h3 {
+    margin-top: 0;
+    color: #0f172a;
+}
+
+/* Listado dentro de tarjetas */
+.experience-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0;
+}
+
+/* Elementos de lista con marca de verificación */
+.experience-card li {
+    margin: 12px 0;
+    padding-left: 24px;
+    position: relative;
+    color: #334155;
+}
+
+/* Marca de verificación personalizada */
+.experience-card li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #16a34a;
+}
+
+/* Nota final de experiencia */    margin-top: 20px;
+}
+
+.experience-card {
+    padding: 22px;
+/* ============================================
+   RESPONSIVE DESIGN - MEDIA QUERIES
+   ============================================ */
+@media (max-width: 760px) {
+    /* Cambiar grid a una sola columna en mobile */
     border-radius: 18px;
     box-shadow: 0 18px 30px rgba(0, 0, 0, 0.08);
     border: 1px solid rgba(229, 159, 14, 0.16);
@@ -250,31 +336,40 @@ button.btn:focus {
     font-size: clamp(2.2rem, 4vw, 3rem);
     font-weight: 800;
     color: #d97706;
-}
-
-.experience-card h3 {
-    margin-top: 0;
-    color: #0f172a;
-}
-
-.experience-card ul {
-    list-style: none;
-    padding: 0;
-    margin: 16px 0 0;
-}
-
-.experience-card li {
+/* ============================================
+   BOTÓN ALTERNATIVO PARA PASOS
+   ============================================ */
+.btn-step {
+    display: inline-block;
     margin: 12px 0;
-    padding-left: 24px;
-    position: relative;
-    color: #334155;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 2px solid var(--primary);
+    background-color: var(--primary);
+    color: var(--primary-text);
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.9rem;
+    /* Transiciones suaves */
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.experience-card li::before {
-    content: "✔";
-    position: absolute;
-    left: 0;
-    top: 0;
+/* Efecto hover */
+.btn-step:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-1px);
+}
+
+/* Efecto focus para accesibilidad */
+.btn-step:focus {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   FOOTER - PIE DE PÁGINA
+   ============================================ */    top: 0;
     color: #16a34a;
 }
 
