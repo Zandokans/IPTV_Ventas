@@ -56,10 +56,10 @@ body {
     font-family: "Segoe UI", Arial, sans-serif;
     margin: 0;
     padding: 0;
-    /* Fondo con gradiente degradado azul */
-    background: linear-gradient(135deg, #e7f1ff 0%, #f8fbff 100%);
+    background-color: var(--bg);
     color: var(--text);
     line-height: 1.5;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ============================================
@@ -445,31 +445,102 @@ footer {
    ============================================ */
 [data-theme="dark"] footer {
     background-color: #0f0f0f;
+    color: #e0e0e0;
 }
 
 [data-theme="dark"] .highlight-box {
     background: linear-gradient(135deg, #004d80 0%, #1a4d6d 100%) !important;
+    color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .highlight-box h2 {
+    color: #ffffff !important;
 }
 
 [data-theme="dark"] .experience-box {
     background: linear-gradient(135deg, #3d2a1a 0%, #2a2015 100%) !important;
     border-color: #5a3d2a !important;
+    color: #e0e0e0 !important;
 }
 
 [data-theme="dark"] .experience-box h2 {
     color: #dba84a !important;
 }
 
+[data-theme="dark"] .experience-card {
+    background: #1a1a1a !important;
+    color: #e0e0e0 !important;
+    border-color: #404040 !important;
+}
+
+[data-theme="dark"] .experience-card h3 {
+    color: #66b8ff !important;
+}
+
+[data-theme="dark"] .experience-number {
+    color: #d97706 !important;
+}
+
 [data-theme="dark"] #gallery figcaption {
     background-color: #2d2d2d;
+    color: #e0e0e0;
+    border-top-color: #404040;
 }
 
 [data-theme="dark"] #gallery figure {
     background-color: #262626;
+    border-color: #404040;
 }
 
 [data-theme="dark"] header {
     background: linear-gradient(135deg, #004d80 0%, #007ab3 100%) !important;
+    color: white;
+}
+
+[data-theme="dark"] header p {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="dark"] section {
+    background-color: var(--card);
+    color: var(--text);
+}
+
+[data-theme="dark"] section h2 {
+    color: #66b8ff;
+}
+
+[data-theme="dark"] .plan {
+    background: linear-gradient(180deg, #262626 0%, #1a1a1a 100%) !important;
+    color: #e0e0e0 !important;
+    border-color: #404040 !important;
+}
+
+[data-theme="dark"] .plan h3 {
+    color: #66b8ff !important;
+}
+
+[data-theme="dark"] .plan .price {
+    color: #88d0ff !important;
+}
+
+[data-theme="dark"] .plan p {
+    color: #a0a0a0 !important;
+}
+
+[data-theme="dark"] .compatibility-list div {
+    background: rgba(102, 184, 255, 0.1);
+    border-color: rgba(102, 184, 255, 0.3);
+    color: #66b8ff;
+}
+
+[data-theme="dark"] .compatibility-list div:hover {
+    background: rgba(102, 184, 255, 0.2);
+}
+
+[data-theme="dark"] ul li {
+    color: #a0a0a0;
+    border-left-color: #66b8ff;
 }
 
 /* Transición suave al cambiar tema */
