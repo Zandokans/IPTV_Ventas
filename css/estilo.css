@@ -26,6 +26,24 @@
     --accent: #0092d1;
 }
 
+/* MODO OSCURO */
+[data-theme="dark"] {
+    /* Color de fondo principal para modo oscuro */
+    --bg: #1a1a1a;
+    /* Color del texto general para modo oscuro */
+    --text: #e0e0e0;
+    /* Color del texto desaturado para modo oscuro */
+    --muted: #a0a0a0;
+    /* Color de superficie secundaria para modo oscuro */
+    --surface: #2d2d2d;
+    /* Color de tarjetas para modo oscuro */
+    --card: #262626;
+    /* Color de bordes para modo oscuro */
+    --border: #404040;
+    /* Color de botones al pasar el mouse para modo oscuro */
+    --button-hover: #0078b3;
+}
+
 /* Selector universal - aplica a todos los elementos */
 * {
     box-sizing: border-box;
@@ -420,4 +438,41 @@ footer {
     background-color: #1a1a1a;
     color: var(--primary-text);
     margin-top: 40px;
+}
+
+/* ============================================
+   ESTILOS ESPECÍFICOS PARA MODO OSCURO
+   ============================================ */
+[data-theme="dark"] footer {
+    background-color: #0f0f0f;
+}
+
+[data-theme="dark"] .highlight-box {
+    background: linear-gradient(135deg, #004d80 0%, #1a4d6d 100%) !important;
+}
+
+[data-theme="dark"] .experience-box {
+    background: linear-gradient(135deg, #3d2a1a 0%, #2a2015 100%) !important;
+    border-color: #5a3d2a !important;
+}
+
+[data-theme="dark"] .experience-box h2 {
+    color: #dba84a !important;
+}
+
+[data-theme="dark"] #gallery figcaption {
+    background-color: #2d2d2d;
+}
+
+[data-theme="dark"] #gallery figure {
+    background-color: #262626;
+}
+
+[data-theme="dark"] header {
+    background: linear-gradient(135deg, #004d80 0%, #007ab3 100%) !important;
+}
+
+/* Transición suave al cambiar tema */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }

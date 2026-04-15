@@ -10,8 +10,13 @@
 <body>
     <!-- Encabezado principal con título y descripción -->
     <header>
-        <h1>Bienvenido a IPTV Pro</h1>
-        <p>Disfruta de la mejor televisión por internet con nuestros servicios de IPTV</p>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1>Bienvenido a IPTV Pro</h1>
+                <p>Disfruta de la mejor televisión por internet con nuestros servicios de IPTV</p>
+            </div>
+            <button id="themeToggle" style="background: none; border: none; cursor: pointer; font-size: 28px; padding: 10px;" title="Cambiar modo oscuro/claro">🌙</button>
+        </div>
     </header>
 
     <!-- Sección informativa: Explicación de qué es IPTV -->
@@ -161,5 +166,28 @@
     <footer>
         <p>&copy; 2023 IPTV Pro. Todos los derechos reservados.</p>
     </footer>
+
+    <script>
+        // Obtener el elemento del botón de tema
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        // Verificar si hay preferencia guardada
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            html.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = '☀️';
+        }
+
+        // Agregar evento de click al botón
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('theme', newTheme);
+        });
+    </script>
 </body>
 </html>
