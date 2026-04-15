@@ -203,6 +203,76 @@ button.btn:focus {
     outline-offset: 2px;
 }
 
+/* ============================================
+   TABLA DE PRECIOS
+   ============================================ */
+.pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.pricing-table thead {
+    background-color: var(--primary);
+    color: var(--primary-text);
+}
+
+.pricing-table th {
+    padding: 18px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.05rem;
+    border-bottom: 2px solid var(--border);
+}
+
+.pricing-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 0.2s ease;
+}
+
+.pricing-table tbody tr:hover {
+    background-color: var(--surface);
+}
+
+.pricing-table td {
+    padding: 16px 18px;
+    text-align: center;
+    color: var(--text);
+    font-size: 1rem;
+}
+
+.pricing-table td:first-child {
+    text-align: left;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.pricing-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+/* ============================================
+   TABLA EN MODO OSCURO
+   ============================================ */
+[data-theme="dark"] .pricing-table thead {
+    background-color: #004d80;
+}
+
+[data-theme="dark"] .pricing-table tbody tr:hover {
+    background-color: #2d2d2d;
+}
+
+[data-theme="dark"] .pricing-table td {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .pricing-table td:first-child {
+    color: #66b8ff;
+}
+
 
 /* ============================================
    SECCIÓN GALERÍA DE PASOS
