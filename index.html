@@ -1052,6 +1052,79 @@
             }
         });
     </script>
+    <!-- ASISTENTE VIRTUAL (CHATBOT) -->
+    <button id="chatbot-toggler" class="chatbot-toggler" aria-label="Abrir Asistente">🤖</button>
+    <div id="chatbot-window" class="chatbot-window">
+        <div class="chatbot-header">
+            <h3>🤖 Asistente IPTV</h3>
+            <button id="chatbot-close" class="chatbot-close">&times;</button>
+        </div>
+        <div id="chatbot-messages" class="chatbot-messages">
+            <!-- Mensajes dinámicos aquí -->
+        </div>
+        <div class="chat-options">
+            <button class="chat-option-btn" data-question="¿Qué es IPTV?">¿Qué es IPTV?</button>
+            <button class="chat-option-btn" data-question="¿Cómo contrato el servicio?">¿Cómo contrato el servicio?</button>
+            <button class="chat-option-btn" data-question="¿En qué dispositivos funciona?">¿En qué dispositivos funciona?</button>
+        </div>
+    </div>
+
+    <script>
+        // Lógica del Asistente Virtual
+        const chatbotToggler = document.getElementById('chatbot-toggler');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        const chatOptionBtns = document.querySelectorAll('.chat-option-btn');
+
+        let hasOpened = false;
+
+        // Toggle chat window
+        chatbotToggler.addEventListener('click', () => {
+            chatbotWindow.classList.toggle('show');
+            hasOpened = true;
+        });
+
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.classList.remove('show');
+        });
+
+        const addMessage = (text, sender) => {
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('chat-msg', sender);
+            msgDiv.textContent = text;
+            chatbotMessages.appendChild(msgDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        };
+
+        // Mensaje inicial de saludo
+        setTimeout(() => {
+            if (!hasOpened) {
+                chatbotWindow.classList.add('show');
+                hasOpened = true;
+            }
+            addMessage('¡Hola! 👋 Soy tu asistente virtual. ¿En qué puedo ayudarte hoy?', 'bot');
+        }, 3000);
+
+        // Respuestas predefinidas
+        const botResponses = {
+            "¿Qué es IPTV?": "IPTV es televisión por internet. Te permite ver miles de canales, películas y series en vivo usando solo tu conexión a internet, sin antenas ni cables.",
+            "¿Cómo contrato el servicio?": "¡Es muy fácil! Puedes ir a la sección de 'Precios', elegir tu plan y luego contactarnos por el botón flotante verde de WhatsApp para la activación inmediata.",
+            "¿En qué dispositivos funciona?": "Funciona en casi cualquier dispositivo: Smart TVs (Samsung, LG, Roku), TV Boxes, celulares Android/iOS, Amazon Fire Stick y en computadora (PC/Mac)."
+        };
+
+        chatOptionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const question = btn.getAttribute('data-question');
+                addMessage(question, 'user');
+                
+                setTimeout(() => {
+                    const response = botResponses[question];
+                    addMessage(response, 'bot');
+                }, 600); // Pequeño retraso simulando "escribiendo..."
+            });
+        });
+    </script>
 </body>
 
 </html>
