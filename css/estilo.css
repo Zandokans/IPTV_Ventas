@@ -1650,3 +1650,49 @@ body.dark-mode .chat-msg.bot {
 body.dark-mode .chatbot-window {
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
 }
+
+/* ============================================
+   SECCIÓN DEVICES (DISPOSITIVOS COMPATIBLES)
+   ============================================ */
+.devices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+.device-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.device-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+.device-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+.device-card:hover .device-img {
+    transform: scale(1.1);
+}
+.device-card h3 {
+    margin: 0 0 10px;
+    color: var(--text);
+}
+.device-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: 0;
+}
+body.dark-mode .device-card {
+    background: rgba(30, 41, 59, 0.5);
+    backdrop-filter: blur(10px);
+}
