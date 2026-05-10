@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venta de IPTV - IPTV Pro</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+</head>
+
+<body>
+    <!-- Sticky Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">IPTV Pro</div>
+        <div class="nav-links">
+            <a href="#about" class="nav-public">¿Qué es?</a>
+            <a href="#services" class="nav-public">Servicios</a>
+            <a href="#pricing" class="nav-public">Precios</a>
+            <a href="#" id="open-login-btn" class="nav-public">Iniciar Sesión</a>
+            <a href="#" id="open-register-btn" class="nav-public">Registrarse</a>
+            <a href="#faq" class="nav-public">FAQ</a>
+            <a href="#" id="dashboard-link" class="nav-private" style="display:none; color: var(--focus);">Mi Panel</a>
+            <a href="#" id="logout-btn" class="nav-private" style="display:none;">Cerrar Sesión</a>
+        </div>
+        <!-- Botón de Modo Oscuro integrado -->
+        <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">🌙</button>
+    </nav>
+
+    <!-- Contenido Principal Landing Page -->
+    <main id="main-content">
+        <!-- Encabezado principal con título y descripción -->
+        <header class="animate-on-scroll">
+            <h1>Bienvenido a <span class="text-accent">IPTV Pro</span></h1>
+            <p>Disfruta de la mejor televisión por internet con nuestros servicios de IPTV</p>
+
+            <!-- Carrusel de Imágenes -->
+            <div class="hero-carousel">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="images/carousel_1.png" alt="IPTV Smart TV interface">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/carousel_2.png" alt="IPTV Movie viewing experience">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/carousel_3.png" alt="IPTV Multi-device synchronization">
+                    </div>
+                </div>
+                <button class="carousel-btn prev-btn" aria-label="Imagen anterior">❮</button>
+                <button class="carousel-btn next-btn" aria-label="Siguiente imagen">❯</button>
+                <div class="carousel-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <span class="dot" data-index="2"></span>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 30px;">
+                <a href="#pricing" class="btn btn-hero" style="margin-top: 0;">Ver Planes y Precios</a>
+                <a href="https://wa.me/56928422082?text=Hola%2C%20quiero%20solicitar%20mi%20Demo%20Gratis%20de%20IPTV"
+                    target="_blank" class="btn btn-hero"
+                    style="margin-top: 0; background-color: #25d366; color: white; box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4); animation: pulse-green 2s infinite;">Solicitar
+                    Demo Gratis</a>
+            </div>
+        </header>
+
+        <!-- Modal de Login -->
+        <div id="login-modal" class="modal-overlay">
+            <div class="modal-content single-form-modal">
+                <span class="close-modal" id="close-login-btn">&times;</span>
+                <h2>Iniciar Sesión</h2>
+                <div class="auth-container">
+                    <!-- Formulario de Login -->
+                    <div class="form-card" style="width: 100%;">
+                        <form id="login-form">
+                            <div class="form-group">
+                                <label for="login-email">Email:</label>
+                                <input type="email" id="login-email" placeholder="ejemplo@correo.com" required>
+                                <span id="login-email-error" class="error-text"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="login-password">Contraseña:</label>
+                                <input type="password" id="login-password" placeholder="Tu contraseña" required>
+                                <span id="login-password-error" class="error-text"></span>
+                            </div>
+                            <div style="text-align: right; margin-bottom: 15px;">
+                                <a href="#" id="open-recover-btn"
+                                    style="font-size: 0.9rem; color: var(--primary);">¿Olvidaste tu contraseña?</a>
+                            </div>
+                            <button type="submit" class="btn" style="width: 100%;">Ingresar</button>
+                            <div id="login-success" class="success-text"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Registro -->
+        <div id="register-modal" class="modal-overlay">
+            <div class="modal-content single-form-modal">
+                <span class="close-modal" id="close-register-btn">&times;</span>
+                <h2>Registro</h2>
+                <div class="auth-container">
+                    <!-- Formulario de Registro -->
+                    <div class="form-card" style="width: 100%;">
+                        <form id="register-form">
+                            <div class="form-group">
+                                <label for="register-user">Usuario:</label>
+                                <input type="text" id="register-user" placeholder="Ej: JuanPerez99" required>
+                                <span id="register-user-error" class="error-text"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-email">Email:</label>
+                                <input type="email" id="register-email" placeholder="ejemplo@correo.com" required>
+                                <span id="register-email-error" class="error-text"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-password">Contraseña (Mínimo 8 caracteres):</label>
+                                <input type="password" id="register-password" placeholder="Mínimo 8 caracteres"
+                                    required>
+                                <span id="register-password-error" class="error-text"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-confirm">Confirmar Contraseña:</label>
+                                <input type="password" id="register-confirm" placeholder="Repite tu contraseña"
+                                    required>
+                                <span id="register-confirm-error" class="error-text"></span>
+                            </div>
+                            <button type="submit" class="btn" style="width: 100%;">Registrarse</button>
+                            <div id="register-success" class="success-text"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Recuperar Contraseña -->
+        <div id="recover-modal" class="modal-overlay">
+            <div class="modal-content single-form-modal">
+                <span class="close-modal" id="close-recover-btn">&times;</span>
+                <h2>Recuperar Contraseña</h2>
+                <div class="auth-container">
+                    <div class="form-card" style="width: 100%;">
+                        <p style="margin-top: 0; margin-bottom: 20px; font-size: 0.95rem; color: var(--muted);">Ingresa
+                            tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.</p>
+                        <form id="recover-form">
+                            <div class="form-group">
+                                <label for="recover-email">Email:</label>
+                                <input type="email" id="recover-email" placeholder="ejemplo@correo.com" required>
+                                <span id="recover-email-error" class="error-text"></span>
+                            </div>
+                            <button type="submit" class="btn" style="width: 100%;">Enviar Enlace</button>
+                            <div id="recover-success" class="success-text"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección informativa: Explicación de qué es IPTV -->
+        <section id="about" class="animate-on-scroll">
+            <h2>¿Qué es IPTV?</h2>
+            <p>IPTV (Televisión por Protocolo de Internet) te permite acceder a miles de canales de televisión desde
+                cualquier dispositivo con conexión a internet. Nuestros servicios ofrecen alta calidad, estabilidad y
+                una
+                amplia variedad de contenido.</p>
+        </section>
+
+        <!-- Sección galería: Pasos de instalación y configuración del servicio -->
+        <section id="gallery" class="animate-on-scroll">
+            <h2>Cómo instalar y activar IPTV Pro</h2>
+            <!-- Contenedor de galería con imágenes de los pasos -->
+            <div class="gallery">
+                <!-- Paso 1: Descarga de la aplicación -->
+                <figure>
+                    <img src="images/1.webp" alt="Paso 1: Descargar" />
+                    <figcaption>Paso 1: Descargar la aplicación</figcaption>
+                </figure>
+                <!-- Paso 2: Instalación en el dispositivo -->
+                <figure>
+                    <img src="images/2.webp" alt="Paso 2: Instalar" />
+                    <figcaption>Paso 2: Instalar en tu dispositivo</figcaption>
+                </figure>
+                <!-- Paso 3: Configuración de acceso -->
+                <figure>
+                    <img src="images/3.webp" alt="Paso 3: Configurar" />
+                    <figcaption>Paso 3: Configurar credenciales</figcaption>
+                </figure>
+                <!-- Paso 4: Verificación y uso del servicio -->
+                <figure>
+                    <img src="images/4.webp" alt="Paso 4: Verificar" />
+                    <figcaption>Paso 4: Verificar y disfrutar</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- Sección servicios: Características principales del servicio IPTV -->
+        <section id="services" class="animate-on-scroll">
+            <h2>Nuestros Servicios</h2>
+            <!-- Lista de características y ventajas -->
+            <ul>
+                <li>Más de 5000 canales en vivo</li>
+                <li>Contenido en HD y 4K</li>
+                <li>Grabación en la nube</li>
+                <li>Acceso desde TV, móvil, tablet y PC</li>
+                <li>Soporte técnico 24/7</li>
+            </ul>
+        </section>
+
+        <!-- Sección de plataformas incluidas -->
+        <section id="platforms" class="animate-on-scroll" style="text-align: center;">
+            <h2>Incluye Todas las Plataformas.</h2>
+
+            <div class="platforms-grid">
+                <span class="platform-logo" aria-label="Netflix"><img src="https://cdn.simpleicons.org/netflix/white"
+                        alt="Netflix"></span>
+                <span class="platform-logo" aria-label="Disney+"><img
+                        src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" alt="Disney+"
+                        style="filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.5));"></span>
+                <span class="platform-logo" aria-label="HBO Max"><img src="https://cdn.simpleicons.org/hbo/white"
+                        alt="HBO Max"></span>
+                <span class="platform-logo" aria-label="Paramount+"><img
+                        src="https://cdn.simpleicons.org/paramountplus/white" alt="Paramount+"></span>
+                <span class="platform-logo" aria-label="UFC Fight Pass"><img src="https://cdn.simpleicons.org/ufc/white"
+                        alt="UFC Fight Pass"></span>
+                <span class="platform-logo" aria-label="Prime Video"><img
+                        src="https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo.svg"
+                        alt="Prime Video"
+                        style="filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.5));"></span>
+                <span class="platform-logo" aria-label="Apple TV+"><img src="https://cdn.simpleicons.org/appletv/white"
+                        alt="Apple TV+"></span>
+                <span class="platform-text"
+                    style="font-family: 'Arial Black', Impact, sans-serif; letter-spacing: -3px; text-transform: lowercase; font-size: 2.2rem;"
+                    aria-label="Hulu">hulu</span>
+                <span class="platform-text">ViX+</span>
+                <span class="platform-logo" aria-label="NBA"><img src="https://cdn.simpleicons.org/nba/white"
+                        alt="NBA"></span>
+            </div>
+
+            <h3 class="platforms-subtitle">También Todos los canales de:</h3>
+
+            <div class="platforms-grid channels-grid">
+                <span class="platform-text">zapping</span>
+                <span class="platform-text">Claro-video</span>
+                <span class="platform-text">DGO</span>
+            </div>
+
+            <div class="more-content-banner">
+                Y mucho mas.
+            </div>
+        </section>
+
+        <!-- Sección de Categorías de Canales -->
+        <section id="channels" class="animate-on-scroll">
+            <h2 style="text-align: center;">Todo el contenido en un solo lugar</h2>
+            <div class="channels-categories-grid">
+                <div class="category-card">
+                    <span class="category-icon">⚽</span>
+                    <h3>Deportes en Vivo</h3>
+                    <p>LaLiga, Premier League, Champions, NBA, UFC y más.</p>
+                </div>
+                <div class="category-card">
+                    <span class="category-icon">🎬</span>
+                    <h3>Cine y Series</h3>
+                    <p>Estrenos, clásicos y maratones 24/7 sin interrupciones.</p>
+                </div>
+                <div class="category-card">
+                    <span class="category-icon">🌍</span>
+                    <h3>Documentales</h3>
+                    <p>National Geographic, Discovery Channel, History, etc.</p>
+                </div>
+                <div class="category-card">
+                    <span class="category-icon">👶</span>
+                    <h3>Infantiles</h3>
+                    <p>Disney Channel, Cartoon Network, Nickelodeon y más.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección experiencia: Información sobre trayectoria y ventajas competitivas -->
+        <section id="experience" class="experience-box animate-on-scroll">
+            <!-- Encabezado con ícono de experiencia -->
+            <div class="experience-top">
+                <img class="experience-badge" src="https://img.icons8.com/fluency/96/ffffff/trophy.png"
+                    alt="Trofeo de experiencia" />
+                <div>
+                    <h2>Más de 10 años de servicio</h2>
+                    <p class="experience-subtitle">Experiencia real, cobertura continua y soporte VIP para tu IPTV.</p>
+                </div>
+            </div>
+            <!-- Grid con tarjetas de experiencia y beneficios -->
+            <div class="experience-grid">
+                <!-- Tarjeta: Años de experiencia -->
+                <div class="experience-card">
+                    <p class="experience-number">+10 años</p>
+                    <p>Somos un servicio sólido con una década de experiencia entregando IPTV estable y una atención
+                        rápida
+                        en cada paso.</p>
+                </div>
+                <!-- Tarjeta: Razones por las que somos los mejores -->
+                <div class="experience-card">
+                    <h3>Por qué somos los mejores</h3>
+                    <ul>
+                        <li>Soporte directo vía WhatsApp 24/7</li>
+                        <li>Actualizaciones constantes y canales siempre activos</li>
+                        <li>Compatibilidad con todos los dispositivos</li>
+                        <li>Clientes satisfechos que vuelven con confianza</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Nota final sobre los valores de la empresa -->
+            <p class="experience-note">Calidad, experiencia y acompañamiento real hacen que seamos la mejor opción para
+                tu
+                IPTV.</p>
+        </section>
+
+        <!-- Sección Testimonios -->
+        <section id="testimonials" class="animate-on-scroll">
+            <h2 style="text-align: center;">Lo que dicen nuestros clientes</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Excelente servicio. Cero cortes en los partidos del fin de semana, que
+                        era mi mayor problema con otros proveedores. Totalmente recomendado."</p>
+                    <div class="testimonial-author">- Carlos M.</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Me activaron la cuenta en 5 minutos por WhatsApp. La calidad de imagen
+                        es brutal, sobre todo los canales en 4K y las películas de estreno."</p>
+                    <div class="testimonial-author">- Andrea G.</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"El soporte es un 10. Tuve un problema instalando la app en mi Smart TV
+                        antigua y me ayudaron paso a paso. Llevo 6 meses y voy por el año."</p>
+                    <div class="testimonial-author">- Roberto S.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección compatibilidad: Dispositivos soportados por el servicio -->
+        <section id="compatibility" class="highlight-box animate-on-scroll">
+            <h2>Servicio compatible con:</h2>
+            <!-- Lista de dispositivos compatibles -->
+            <div class="compatibility-list">
+                <div>Celular</div>
+                <div>TV Box</div>
+                <div>iPhone</div>
+                <div>Tablet</div>
+                <div>Computadores</div>
+                <div>Smart TV</div>
+            </div>
+        </section>
+
+        <!-- Sección precios: Planes de suscripción disponibles -->
+        <section id="pricing" class="animate-on-scroll">
+            <h2>Planes y Precios</h2>
+            <!-- Contenedor de tarjetas de planes -->
+            <div class="pricing-table-container">
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>Duración</th>
+                            <th>Básico<br><span style="font-size: 0.85em; font-weight: normal;">1 Dispositivo</span>
+                            </th>
+                            <th>Familiar<br><span style="font-size: 0.85em; font-weight: normal;">3 Dispositivos</span>
+                            </th>
+                            <th>Premium<br><span style="font-size: 0.85em; font-weight: normal;">4 Dispositivos</span>
+                            </th>
+                            <th>VIP<br><span style="font-size: 0.85em; font-weight: normal;">6 Dispositivos</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1 Mes</td>
+                            <td>$2.000</td>
+                            <td>$3.000</td>
+                            <td>$4.000</td>
+                            <td>$5.000</td>
+                        </tr>
+                        <tr>
+                            <td>3 Meses</td>
+                            <td>$6.000</td>
+                            <td>$7.000</td>
+                            <td>$10.000</td>
+                            <td>$13.000</td>
+                        </tr>
+                        <tr>
+                            <td>6 Meses</td>
+                            <td>$12.000</td>
+                            <td>$16.000</td>
+                            <td>$17.000</td>
+                            <td>$25.000</td>
+                        </tr>
+                        <tr>
+                            <td>12 Meses</td>
+                            <td>$20.000</td>
+                            <td>$25.000</td>
+                            <td>$30.000</td>
+                            <td>$40.000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pricing-action">
+                <a class="btn btn-large"
+                    href="https://wa.me/56928422082?text=Hola%2C%20quiero%20contratar%20un%20plan%20de%20IPTV"
+                    target="_blank" rel="noopener noreferrer">Contratar Ahora</a>
+            </div>
+        </section>
+
+
+
+        <!-- Sección contacto: Información de contacto y canales de atención -->
+        <section id="contact" class="animate-on-scroll">
+            <h2>Contacto</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <p>¿Interesado? Contáctanos para más información:</p>
+                    <!-- Email de contacto -->
+                    <p>Email: Mas.facil.888@gmail.com</p>
+                    <!-- Teléfono de contacto -->
+                    <p>Teléfono: +56928422082</p>
+                    <!-- WhatsApp para soporte directo -->
+                    <p>WhatsApp: +56928422082</p>
+                </div>
+
+                <div class="form-card contact-form-card">
+                    <h3>Envíanos un mensaje</h3>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="contact-name">Nombre:</label>
+                            <input type="text" id="contact-name" placeholder="Ej: María López" required>
+                            <span id="contact-name-error" class="error-text"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-subject">Asunto:</label>
+                            <input type="text" id="contact-subject" placeholder="Ej: Consulta sobre el Plan Básico"
+                                required>
+                            <span id="contact-subject-error" class="error-text"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Mensaje:</label>
+                            <textarea id="contact-message" rows="4" maxlength="500"
+                                placeholder="Escribe aquí tus dudas y te responderemos lo antes posible..."
+                                required></textarea>
+                            <div class="char-counter"><span id="char-count">0</span>/500 caracteres</div>
+                            <span id="contact-message-error" class="error-text"></span>
+                        </div>
+                        <button type="submit" class="btn">Enviar Mensaje</button>
+                        <div id="contact-success" class="success-text"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección FAQ -->
+        <section id="faq" class="animate-on-scroll faq-section">
+            <h2>Preguntas Frecuentes</h2>
+            <div class="faq-container">
+                <details class="faq-item">
+                    <summary>¿Qué necesito para usar IPTV?</summary>
+                    <div class="faq-content">Solo necesitas una conexión a internet estable (mínimo 15 Mbps
+                        recomendables) y
+                        un dispositivo compatible como un Smart TV, celular, PC o TV Box.</div>
+                </details>
+                <details class="faq-item">
+                    <summary>¿Puedo pagar y activarlo de inmediato?</summary>
+                    <div class="faq-content">¡Sí! Una vez confirmemos el pago vía WhatsApp, te enviaremos tus
+                        credenciales
+                        para que empieces a disfrutar al instante.</div>
+                </details>
+                <details class="faq-item">
+                    <summary>¿Puedo usar el servicio en varios dispositivos?</summary>
+                    <div class="faq-content">Depende del plan que elijas. Nuestro Plan VIP te permite ver hasta en 6
+                        dispositivos simultáneamente. Revisa nuestra tabla de precios para más detalles.</div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Dashboard de Cliente -->
+    <div id="user-dashboard" style="display: none;" class="dashboard-container animate-on-scroll">
+        <div class="dashboard-header">
+            <h2>Bienvenido, <span id="dashboard-username" class="text-accent">Usuario</span></h2>
+            <p>Estado de tu cuenta: <span class="status-active" style="color: #00e676; font-weight: bold;">Activo</span>
+            </p>
+        </div>
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <h3>Tu Plan Actual</h3>
+                <p class="plan-name" style="font-size: 1.2rem; font-weight: bold; color: var(--primary);">Plan VIP (6
+                    Dispositivos)</p>
+                <p>Vence en: <strong>28 días</strong></p>
+                <button class="btn btn-step">Renovar Plan</button>
+            </div>
+            <div class="dashboard-card">
+                <h3>Tus Listas y Accesos</h3>
+                <p>Usa estos datos en tu aplicación IPTV:</p>
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label>URL M3U:</label>
+                    <input type="text" value="http://iptvpro.tv/get.php?username=cliente&password=123&type=m3u" readonly
+                        style="width: 100%; font-size: 0.85rem;">
+                </div>
+                <button class="btn btn-step" onclick="alert('Enlace copiado al portapapeles')">Copiar Enlace</button>
+            </div>
+            <div class="dashboard-card">
+                <h3>Soporte Técnico</h3>
+                <p>¿Tienes problemas con tu servicio?</p>
+                <a href="https://wa.me/56928422082" class="btn btn-step" target="_blank"
+                    rel="noopener noreferrer">Contactar Soporte</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón Volver Arriba -->
+    <button id="back-to-top" aria-label="Volver arriba">↑</button>
+
+    <!-- Botón Whatsapp Flotante -->
+    <a href="https://wa.me/56928422082?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n" class="wa-floating"
+        target="_blank" rel="noopener noreferrer" aria-label="Chat WhatsApp">
+        <img src="https://img.icons8.com/color/60/ffffff/whatsapp--v1.png" alt="WhatsApp" />
+    </a>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>IPTV Pro</h3>
+                <p>El mejor servicio de televisión por internet, con estabilidad garantizada y soporte 24/7.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Enlaces Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="#about">¿Qué es IPTV?</a></li>
+                    <li><a href="#services">Servicios</a></li>
+                    <li><a href="#pricing">Planes y Precios</a></li>
+                    <li><a href="#faq">Preguntas Frecuentes</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Legal y Contacto</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="#">Política de Reembolso</a></li>
+                    <li><a href="mailto:Mas.facil.888@gmail.com">Soporte por Email</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 IPTV Pro. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Script de Modo Oscuro -->
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const theme = localStorage.getItem('theme');
+
+        if (theme === "dark") {
+            document.body.classList.add("dark-mode");
+            themeToggleBtn.innerText = "☀️";
+        }
+
+        themeToggleBtn.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+                themeToggleBtn.innerText = "☀️";
+            } else {
+                localStorage.setItem("theme", "light");
+                themeToggleBtn.innerText = "🌙";
+            }
+        });
+
+        // Lógica del botón Volver Arriba
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Intersection Observer para Animaciones de Scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(section => {
+            observer.observe(section);
+        });
+
+        // ============================================
+        // LÓGICA DE VALIDACIÓN DE FORMULARIOS
+        // ============================================
+
+        // --- Lógica de Modales de Autenticación ---
+        const loginModal = document.getElementById('login-modal');
+        const registerModal = document.getElementById('register-modal');
+        const openLoginBtn = document.getElementById('open-login-btn');
+        const openRegisterBtn = document.getElementById('open-register-btn');
+        const closeLoginBtn = document.getElementById('close-login-btn');
+        const closeRegisterBtn = document.getElementById('close-register-btn');
+
+        if (openLoginBtn && loginModal && closeLoginBtn) {
+            openLoginBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                loginModal.classList.add('show');
+            });
+
+            closeLoginBtn.addEventListener('click', function () {
+                loginModal.classList.remove('show');
+            });
+
+            window.addEventListener('click', function (e) {
+                if (e.target === loginModal) {
+                    loginModal.classList.remove('show');
+                }
+            });
+        }
+
+        if (openRegisterBtn && registerModal && closeRegisterBtn) {
+            openRegisterBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                registerModal.classList.add('show');
+            });
+
+            closeRegisterBtn.addEventListener('click', function () {
+                registerModal.classList.remove('show');
+            });
+
+            window.addEventListener('click', function (e) {
+                if (e.target === registerModal) {
+                    registerModal.classList.remove('show');
+                }
+            });
+        }
+
+        const recoverModal = document.getElementById('recover-modal');
+        const openRecoverBtn = document.getElementById('open-recover-btn');
+        const closeRecoverBtn = document.getElementById('close-recover-btn');
+
+        if (openRecoverBtn && recoverModal && closeRecoverBtn) {
+            openRecoverBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                loginModal.classList.remove('show'); // cerrar login primero
+                recoverModal.classList.add('show');
+            });
+
+            closeRecoverBtn.addEventListener('click', function () {
+                recoverModal.classList.remove('show');
+            });
+
+            window.addEventListener('click', function (e) {
+                if (e.target === recoverModal) {
+                    recoverModal.classList.remove('show');
+                }
+            });
+        }
+
+        // Formulario de Recuperación
+        const recoverForm = document.getElementById('recover-form');
+        if (recoverForm) {
+            recoverForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const email = document.getElementById('recover-email').value.trim();
+                const errorSpan = document.getElementById('recover-email-error');
+                const successMsg = document.getElementById('recover-success');
+
+                errorSpan.textContent = '';
+                successMsg.textContent = '';
+
+                if (email === '') {
+                    errorSpan.textContent = 'El email es obligatorio.';
+                } else {
+                    successMsg.textContent = 'Si el email está registrado, recibirás un enlace de recuperación pronto.';
+                    successMsg.style.color = '#00e676';
+                    recoverForm.reset();
+                }
+            });
+        }
+
+        // --- Formulario de Registro ---
+        const registerForm = document.getElementById('register-form');
+        if (registerForm) {
+            registerForm.addEventListener('submit', function (event) {
+                event.preventDefault(); // Validación preventiva
+
+                // Captura de valores mediante document.getElementById
+                const user = document.getElementById('register-user').value.trim();
+                const email = document.getElementById('register-email').value.trim();
+                const password = document.getElementById('register-password').value;
+                const confirm = document.getElementById('register-confirm').value;
+
+                // Elementos de error para feedback en tiempo real
+                const userError = document.getElementById('register-user-error');
+                const emailError = document.getElementById('register-email-error');
+                const passwordError = document.getElementById('register-password-error');
+                const confirmError = document.getElementById('register-confirm-error');
+                const successMsg = document.getElementById('register-success');
+
+                // Limpiar mensajes
+                userError.textContent = '';
+                emailError.textContent = '';
+                passwordError.textContent = '';
+                confirmError.textContent = '';
+                successMsg.textContent = '';
+
+                let isValid = true;
+
+                if (user === '') {
+                    userError.textContent = 'El usuario es obligatorio.';
+                    isValid = false;
+                }
+
+                // Validar que el email tenga un formato válido (regex)
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    emailError.textContent = 'El formato del email no es válido.';
+                    isValid = false;
+                }
+
+                // Asegurar que la contraseña tenga al menos 8 caracteres
+                if (password.length < 8) {
+                    passwordError.textContent = 'La contraseña debe tener al menos 8 caracteres.';
+                    isValid = false;
+                }
+
+                // Verificar que ambas contraseñas ingresadas sean idénticas
+                if (password !== confirm) {
+                    confirmError.textContent = 'Las contraseñas no coinciden.';
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    // Guardar en localStorage simulando guardado en base de datos
+                    const userData = { user, email, password };
+                    localStorage.setItem('iptv_user_' + email, JSON.stringify(userData));
+
+                    successMsg.textContent = '¡Registro exitoso! Ya puedes iniciar sesión, ' + user + '.';
+                    successMsg.style.color = '#00e676';
+                    registerForm.reset();
+                }
+            });
+        }
+
+        // --- Formulario de Login ---
+        const loginForm = document.getElementById('login-form');
+        if (loginForm) {
+            loginForm.addEventListener('submit', function (event) {
+                event.preventDefault(); // Validación preventiva
+
+                // Captura de valores mediante document.getElementById
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value;
+
+                // Elementos de error
+                const emailError = document.getElementById('login-email-error');
+                const passwordError = document.getElementById('login-password-error');
+                const successMsg = document.getElementById('login-success');
+
+                // Limpiar mensajes
+                emailError.textContent = '';
+                passwordError.textContent = '';
+                successMsg.textContent = '';
+
+                let isValid = true;
+
+                // Validar campos obligatorios
+                if (email === '') {
+                    emailError.textContent = 'El email es obligatorio.';
+                    isValid = false;
+                } else {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(email)) {
+                        emailError.textContent = 'Formato de email inválido.';
+                        isValid = false;
+                    }
+                }
+
+                if (password === '') {
+                    passwordError.textContent = 'La contraseña es obligatoria.';
+                    isValid = false;
+                }
+
+                // Mensaje de éxito si los formatos son correctos
+                if (isValid) {
+                    const storedUserStr = localStorage.getItem('iptv_user_' + email);
+                    if (storedUserStr) {
+                        const storedUser = JSON.parse(storedUserStr);
+                        if (storedUser.password === password) {
+                            successMsg.textContent = '¡Inicio de sesión exitoso! Bienvenido de nuevo, ' + storedUser.user + '.';
+                            successMsg.style.color = '#00e676';
+                            loginForm.reset();
+
+                            // Guardar sesión actual
+                            localStorage.setItem('iptv_current_session', storedUserStr);
+
+                            // Redirigir al dashboard tras 1 segundo
+                            setTimeout(() => {
+                                loginModal.classList.remove('show');
+                                checkSession();
+                            }, 1000);
+                        } else {
+                            passwordError.textContent = 'Contraseña incorrecta.';
+                        }
+                    } else {
+                        emailError.textContent = 'Usuario no encontrado. Por favor, regístrate.';
+                    }
+                }
+            });
+        }
+
+        // --- Lógica de Sesión (Dashboard) ---
+        function checkSession() {
+            const currentSession = localStorage.getItem('iptv_current_session');
+            const mainContent = document.getElementById('main-content');
+            const userDashboard = document.getElementById('user-dashboard');
+            const navPublic = document.querySelectorAll('.nav-public');
+            const navPrivate = document.querySelectorAll('.nav-private');
+            const dashUsername = document.getElementById('dashboard-username');
+
+            if (currentSession) {
+                const user = JSON.parse(currentSession);
+                // Mostrar Dashboard, ocultar Main
+                mainContent.style.display = 'none';
+                userDashboard.style.display = 'block';
+                // Cambiar Nav
+                navPublic.forEach(el => el.style.display = 'none');
+                navPrivate.forEach(el => el.style.display = 'inline-block');
+                dashUsername.textContent = user.user;
+
+                // Disparar animación de scroll
+                setTimeout(() => userDashboard.classList.add('visible'), 100);
+            } else {
+                // Mostrar Main, ocultar Dashboard
+                mainContent.style.display = 'block';
+                userDashboard.style.display = 'none';
+                // Cambiar Nav
+                navPublic.forEach(el => el.style.display = 'inline-block');
+                navPrivate.forEach(el => el.style.display = 'none');
+            }
+        }
+
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                localStorage.removeItem('iptv_current_session');
+                checkSession();
+                window.scrollTo(0, 0);
+            });
+        }
+
+        const dashboardLink = document.getElementById('dashboard-link');
+        if (dashboardLink) {
+            dashboardLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                checkSession();
+            });
+        }
+
+        // Checkear sesión al cargar la página
+        checkSession();
+
+        // --- Formulario de Contacto ---
+        const contactForm = document.getElementById('contact-form');
+        const messageInput = document.getElementById('contact-message');
+        const charCount = document.getElementById('char-count');
+
+        // Implementar un contador de caracteres para el área de mensaje
+        if (messageInput) {
+            messageInput.addEventListener('input', function () {
+                const currentLength = this.value.length;
+                charCount.textContent = currentLength;
+            });
+        }
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function (event) {
+                event.preventDefault(); // Validación preventiva
+
+                const name = document.getElementById('contact-name').value.trim();
+                const subject = document.getElementById('contact-subject').value.trim();
+                const message = document.getElementById('contact-message').value.trim();
+
+                const nameError = document.getElementById('contact-name-error');
+                const subjectError = document.getElementById('contact-subject-error');
+                const messageError = document.getElementById('contact-message-error');
+                const successMsg = document.getElementById('contact-success');
+
+                nameError.textContent = '';
+                subjectError.textContent = '';
+                messageError.textContent = '';
+                successMsg.textContent = '';
+
+                let isValid = true;
+
+                if (name === '') {
+                    nameError.textContent = 'El nombre es obligatorio.';
+                    isValid = false;
+                }
+
+                if (subject === '') {
+                    subjectError.textContent = 'El asunto es obligatorio.';
+                    isValid = false;
+                }
+
+                if (message === '') {
+                    messageError.textContent = 'El mensaje es obligatorio.';
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    // Limpiar los campos automáticamente tras un envío exitoso
+                    successMsg.textContent = 'Tu mensaje ha sido enviado exitosamente.';
+                    contactForm.reset();
+                    charCount.textContent = '0';
+                }
+            });
+        }
+
+        // ============================================
+        // LÓGICA DEL CARRUSEL HERO (JQUERY)
+        // ============================================
+        $(document).ready(function () {
+            const $track = $('.carousel-track');
+            if ($track.length) {
+                const $slides = $('.carousel-slide');
+                const $nextButton = $('.next-btn');
+                const $prevButton = $('.prev-btn');
+                const $dots = $('.dot');
+
+                let currentSlideIndex = 0;
+                let slideInterval;
+
+                const updateCarousel = () => {
+                    $track.css('transform', `translateX(-${currentSlideIndex * 100}%)`);
+                    $dots.removeClass('active').eq(currentSlideIndex).addClass('active');
+                };
+
+                const moveToNextSlide = () => {
+                    currentSlideIndex = (currentSlideIndex + 1) % $slides.length;
+                    updateCarousel();
+                };
+
+                const moveToPrevSlide = () => {
+                    currentSlideIndex = (currentSlideIndex - 1 + $slides.length) % $slides.length;
+                    updateCarousel();
+                };
+
+                $nextButton.on('click', () => {
+                    moveToNextSlide();
+                    resetInterval();
+                });
+
+                $prevButton.on('click', () => {
+                    moveToPrevSlide();
+                    resetInterval();
+                });
+
+                $dots.on('click', function () {
+                    currentSlideIndex = parseInt($(this).data('index'));
+                    updateCarousel();
+                    resetInterval();
+                });
+
+                const startInterval = () => {
+                    slideInterval = setInterval(moveToNextSlide, 5000); // 5 seconds autoplay
+                };
+
+                const resetInterval = () => {
+                    clearInterval(slideInterval);
+                    startInterval();
+                };
+
+                startInterval();
+            }
+        });
+    </script>
+</body>
+
+</html>
