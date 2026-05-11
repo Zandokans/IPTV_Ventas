@@ -1504,8 +1504,8 @@ body.dark-mode #testimonials {
     position: fixed;
     bottom: 30px;
     left: 30px;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background-color: var(--primary);
     color: white;
     border: none;
@@ -1516,7 +1516,7 @@ body.dark-mode #testimonials {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     transition: transform 0.3s ease, background-color 0.3s;
 }
 
@@ -1527,9 +1527,9 @@ body.dark-mode #testimonials {
 
 .chatbot-window {
     position: fixed;
-    bottom: 100px;
+    bottom: 90px;
     left: 30px;
-    width: 320px;
+    width: 280px;
     max-width: calc(100vw - 60px);
     background: var(--card);
     border-radius: 16px;
