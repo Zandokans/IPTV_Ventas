@@ -677,8 +677,22 @@
         });
 
         // ============================================
-        // LÓGICA DE VALIDACIÓN DE FORMULARIOS
+        // LÓGICA DE VALIDACIÓN DE FORMULARIOS Y GESTIÓN DE USUARIOS
         // ============================================
+
+        // --- Estructuras de Datos ---
+        // Arreglo para almacenar la lista de inscritos
+        let listaInscritos = JSON.parse(localStorage.getItem('iptv_usuarios_lista')) || [];
+
+        // --- Funciones Modulares ---
+        function guardarUsuario(usuarioObj) {
+            listaInscritos.push(usuarioObj);
+            localStorage.setItem('iptv_usuarios_lista', JSON.stringify(listaInscritos));
+        }
+
+        function buscarUsuario(email) {
+            return listaInscritos.find(u => u.email === email);
+        }
 
         // --- Lógica de Modales de Autenticación ---
         const loginModal = document.getElementById('login-modal');
@@ -693,15 +707,9 @@
                 e.preventDefault();
                 loginModal.classList.add('show');
             });
-
-            closeLoginBtn.addEventListener('click', function () {
-                loginModal.classList.remove('show');
-            });
-
-            window.addEventListener('click', function (e) {
-                if (e.target === loginModal) {
-                    loginModal.classList.remove('show');
-                }
+            closeLoginBtn.addEventListener('click', () => loginModal.classList.remove('show'));
+            window.addEventListener('click', (e) => {
+                if (e.target === loginModal) loginModal.classList.remove('show');
             });
         }
 
@@ -710,15 +718,9 @@
                 e.preventDefault();
                 registerModal.classList.add('show');
             });
-
-            closeRegisterBtn.addEventListener('click', function () {
-                registerModal.classList.remove('show');
-            });
-
-            window.addEventListener('click', function (e) {
-                if (e.target === registerModal) {
-                    registerModal.classList.remove('show');
-                }
+            closeRegisterBtn.addEventListener('click', () => registerModal.classList.remove('show'));
+            window.addEventListener('click', (e) => {
+                if (e.target === registerModal) registerModal.classList.remove('show');
             });
         }
 
@@ -729,18 +731,12 @@
         if (openRecoverBtn && recoverModal && closeRecoverBtn) {
             openRecoverBtn.addEventListener('click', function (e) {
                 e.preventDefault();
-                loginModal.classList.remove('show'); // cerrar login primero
+                loginModal.classList.remove('show');
                 recoverModal.classList.add('show');
             });
-
-            closeRecoverBtn.addEventListener('click', function () {
-                recoverModal.classList.remove('show');
-            });
-
-            window.addEventListener('click', function (e) {
-                if (e.target === recoverModal) {
-                    recoverModal.classList.remove('show');
-                }
+            closeRecoverBtn.addEventListener('click', () => recoverModal.classList.remove('show'));
+            window.addEventListener('click', (e) => {
+                if (e.target === recoverModal) recoverModal.classList.remove('show');
             });
         }
 
@@ -766,136 +762,84 @@
             });
         }
 
-        // --- Formulario de Registro ---
+        // --- Validación Modular de Registro ---
+        function validarRegistro(event) {
+            event.preventDefault();
+
+            const user = document.getElementById('register-user').value.trim();
+            const email = document.getElementById('register-email').value.trim();
+            const password = document.getElementById('register-password').value;
+            const confirm = document.getElementById('register-confirm').value;
+
+            const userError = document.getElementById('register-user-error');
+            const emailError = document.getElementById('register-email-error');
+            const passwordError = document.getElementById('register-password-error');
+            const confirmError = document.getElementById('register-confirm-error');
+            const successMsg = document.getElementById('register-success');
+
+            userError.textContent = ''; emailError.textContent = '';
+            passwordError.textContent = ''; confirmError.textContent = '';
+            successMsg.textContent = '';
+
+            let isValid = true;
+
+            if (user === '') { userError.textContent = 'El usuario es obligatorio.'; isValid = false; }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) { emailError.textContent = 'Formato de email inválido.'; isValid = false; }
+            
+            if (password.length < 8) { passwordError.textContent = 'Mínimo 8 caracteres.'; isValid = false; }
+            if (password !== confirm) { confirmError.textContent = 'Las contraseñas no coinciden.'; isValid = false; }
+            
+            if (buscarUsuario(email)) { emailError.textContent = 'Este email ya está registrado.'; isValid = false; }
+
+            if (isValid) {
+                const userData = { user, email, password };
+                guardarUsuario(userData);
+                successMsg.textContent = '¡Registro exitoso! Ya puedes iniciar sesión, ' + user + '.';
+                successMsg.style.color = '#00e676';
+                document.getElementById('register-form').reset();
+            }
+        }
+
         const registerForm = document.getElementById('register-form');
-        if (registerForm) {
-            registerForm.addEventListener('submit', function (event) {
-                event.preventDefault(); // Validación preventiva
+        if (registerForm) registerForm.addEventListener('submit', validarRegistro);
 
-                // Captura de valores mediante document.getElementById
-                const user = document.getElementById('register-user').value.trim();
-                const email = document.getElementById('register-email').value.trim();
-                const password = document.getElementById('register-password').value;
-                const confirm = document.getElementById('register-confirm').value;
+        // --- Validación Modular de Login ---
+        function validarLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            const emailError = document.getElementById('login-email-error');
+            const passwordError = document.getElementById('login-password-error');
+            const successMsg = document.getElementById('login-success');
 
-                // Elementos de error para feedback en tiempo real
-                const userError = document.getElementById('register-user-error');
-                const emailError = document.getElementById('register-email-error');
-                const passwordError = document.getElementById('register-password-error');
-                const confirmError = document.getElementById('register-confirm-error');
-                const successMsg = document.getElementById('register-success');
+            emailError.textContent = ''; passwordError.textContent = ''; successMsg.textContent = '';
+            let isValid = true;
 
-                // Limpiar mensajes
-                userError.textContent = '';
-                emailError.textContent = '';
-                passwordError.textContent = '';
-                confirmError.textContent = '';
-                successMsg.textContent = '';
+            if (email === '') { emailError.textContent = 'El email es obligatorio.'; isValid = false; }
+            if (password === '') { passwordError.textContent = 'La contraseña es obligatoria.'; isValid = false; }
 
-                let isValid = true;
-
-                if (user === '') {
-                    userError.textContent = 'El usuario es obligatorio.';
-                    isValid = false;
-                }
-
-                // Validar que el email tenga un formato válido (regex)
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    emailError.textContent = 'El formato del email no es válido.';
-                    isValid = false;
-                }
-
-                // Asegurar que la contraseña tenga al menos 8 caracteres
-                if (password.length < 8) {
-                    passwordError.textContent = 'La contraseña debe tener al menos 8 caracteres.';
-                    isValid = false;
-                }
-
-                // Verificar que ambas contraseñas ingresadas sean idénticas
-                if (password !== confirm) {
-                    confirmError.textContent = 'Las contraseñas no coinciden.';
-                    isValid = false;
-                }
-
-                if (isValid) {
-                    // Guardar en localStorage simulando guardado en base de datos
-                    const userData = { user, email, password };
-                    localStorage.setItem('iptv_user_' + email, JSON.stringify(userData));
-
-                    successMsg.textContent = '¡Registro exitoso! Ya puedes iniciar sesión, ' + user + '.';
-                    successMsg.style.color = '#00e676';
-                    registerForm.reset();
-                }
-            });
-        }
-
-        // --- Formulario de Login ---
-        const loginForm = document.getElementById('login-form');
-        if (loginForm) {
-            loginForm.addEventListener('submit', function (event) {
-                event.preventDefault(); // Validación preventiva
-
-                // Captura de valores mediante document.getElementById
-                const email = document.getElementById('login-email').value.trim();
-                const password = document.getElementById('login-password').value;
-
-                // Elementos de error
-                const emailError = document.getElementById('login-email-error');
-                const passwordError = document.getElementById('login-password-error');
-                const successMsg = document.getElementById('login-success');
-
-                // Limpiar mensajes
-                emailError.textContent = '';
-                passwordError.textContent = '';
-                successMsg.textContent = '';
-
-                let isValid = true;
-
-                // Validar campos obligatorios
-                if (email === '') {
-                    emailError.textContent = 'El email es obligatorio.';
-                    isValid = false;
-                } else {
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(email)) {
-                        emailError.textContent = 'Formato de email inválido.';
-                        isValid = false;
-                    }
-                }
-
-                if (password === '') {
-                    passwordError.textContent = 'La contraseña es obligatoria.';
-                    isValid = false;
-                }
-
-                // Mensaje de éxito si los formatos son correctos
-                if (isValid) {
-                    const storedUserStr = localStorage.getItem('iptv_user_' + email);
-                    if (storedUserStr) {
-                        const storedUser = JSON.parse(storedUserStr);
-                        if (storedUser.password === password) {
-                            successMsg.textContent = '¡Inicio de sesión exitoso! Bienvenido de nuevo, ' + storedUser.user + '.';
-                            successMsg.style.color = '#00e676';
-                            loginForm.reset();
-
-                            // Guardar sesión actual
-                            localStorage.setItem('iptv_current_session', storedUserStr);
-
-                            // Redirigir al dashboard tras 1 segundo
-                            setTimeout(() => {
-                                loginModal.classList.remove('show');
-                                checkSession();
-                            }, 1000);
-                        } else {
-                            passwordError.textContent = 'Contraseña incorrecta.';
-                        }
+            if (isValid) {
+                const storedUser = buscarUsuario(email);
+                if (storedUser) {
+                    if (storedUser.password === password) {
+                        successMsg.textContent = '¡Inicio de sesión exitoso! Bienvenido de nuevo, ' + storedUser.user + '.';
+                        successMsg.style.color = '#00e676';
+                        document.getElementById('login-form').reset();
+                        localStorage.setItem('iptv_current_session', JSON.stringify(storedUser));
+                        setTimeout(() => { loginModal.classList.remove('show'); checkSession(); }, 1000);
                     } else {
-                        emailError.textContent = 'Usuario no encontrado. Por favor, regístrate.';
+                        passwordError.textContent = 'Contraseña incorrecta.';
                     }
+                } else {
+                    emailError.textContent = 'Usuario no encontrado. Por favor, regístrate.';
                 }
-            });
+            }
         }
+
+        const loginForm = document.getElementById('login-form');
+        if (loginForm) loginForm.addEventListener('submit', validarLogin);
 
         // --- Lógica de Sesión (Dashboard) ---
         function checkSession() {
@@ -908,157 +852,108 @@
 
             if (currentSession) {
                 const user = JSON.parse(currentSession);
-                // Mostrar Dashboard, ocultar Main
-                mainContent.style.display = 'none';
-                userDashboard.style.display = 'block';
-                // Cambiar Nav
+                mainContent.style.display = 'none'; userDashboard.style.display = 'block';
                 navPublic.forEach(el => el.style.display = 'none');
                 navPrivate.forEach(el => el.style.display = 'inline-block');
                 dashUsername.textContent = user.user;
-
-                // Disparar animación de scroll
                 setTimeout(() => userDashboard.classList.add('visible'), 100);
             } else {
-                // Mostrar Main, ocultar Dashboard
-                mainContent.style.display = 'block';
-                userDashboard.style.display = 'none';
-                // Cambiar Nav
+                mainContent.style.display = 'block'; userDashboard.style.display = 'none';
                 navPublic.forEach(el => el.style.display = 'inline-block');
                 navPrivate.forEach(el => el.style.display = 'none');
             }
         }
 
         const logoutBtn = document.getElementById('logout-btn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                localStorage.removeItem('iptv_current_session');
-                checkSession();
-                window.scrollTo(0, 0);
-            });
-        }
+        if (logoutBtn) logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault(); localStorage.removeItem('iptv_current_session'); checkSession(); window.scrollTo(0, 0);
+        });
 
         const dashboardLink = document.getElementById('dashboard-link');
-        if (dashboardLink) {
-            dashboardLink.addEventListener('click', function (e) {
-                e.preventDefault();
-                checkSession();
-            });
-        }
-
-        // Checkear sesión al cargar la página
+        if (dashboardLink) dashboardLink.addEventListener('click', (e) => { e.preventDefault(); checkSession(); });
         checkSession();
 
-        // --- Formulario de Contacto ---
-        const contactForm = document.getElementById('contact-form');
+        // --- Validación Modular de Contacto ---
         const messageInput = document.getElementById('contact-message');
         const charCount = document.getElementById('char-count');
-
-        // Implementar un contador de caracteres para el área de mensaje
         if (messageInput) {
-            messageInput.addEventListener('input', function () {
-                const currentLength = this.value.length;
-                charCount.textContent = currentLength;
-            });
+            messageInput.addEventListener('input', function () { charCount.textContent = this.value.length; });
         }
 
-        if (contactForm) {
-            contactForm.addEventListener('submit', function (event) {
-                event.preventDefault(); // Validación preventiva
+        function validarContacto(event) {
+            event.preventDefault();
+            const name = document.getElementById('contact-name').value.trim();
+            const subject = document.getElementById('contact-subject').value.trim();
+            const message = document.getElementById('contact-message').value.trim();
 
-                const name = document.getElementById('contact-name').value.trim();
-                const subject = document.getElementById('contact-subject').value.trim();
-                const message = document.getElementById('contact-message').value.trim();
+            const nameError = document.getElementById('contact-name-error');
+            const subjectError = document.getElementById('contact-subject-error');
+            const messageError = document.getElementById('contact-message-error');
+            const successMsg = document.getElementById('contact-success');
 
-                const nameError = document.getElementById('contact-name-error');
-                const subjectError = document.getElementById('contact-subject-error');
-                const messageError = document.getElementById('contact-message-error');
-                const successMsg = document.getElementById('contact-success');
+            nameError.textContent = ''; subjectError.textContent = ''; messageError.textContent = ''; successMsg.textContent = '';
+            let isValid = true;
 
-                nameError.textContent = '';
-                subjectError.textContent = '';
-                messageError.textContent = '';
-                successMsg.textContent = '';
+            if (name === '') { nameError.textContent = 'El nombre es obligatorio.'; isValid = false; }
+            if (subject === '') { subjectError.textContent = 'El asunto es obligatorio.'; isValid = false; }
+            if (message === '') { messageError.textContent = 'El mensaje es obligatorio.'; isValid = false; }
 
-                let isValid = true;
-
-                if (name === '') {
-                    nameError.textContent = 'El nombre es obligatorio.';
-                    isValid = false;
-                }
-
-                if (subject === '') {
-                    subjectError.textContent = 'El asunto es obligatorio.';
-                    isValid = false;
-                }
-
-                if (message === '') {
-                    messageError.textContent = 'El mensaje es obligatorio.';
-                    isValid = false;
-                }
-
-                if (isValid) {
-                    // Limpiar los campos automáticamente tras un envío exitoso
-                    successMsg.textContent = 'Tu mensaje ha sido enviado exitosamente.';
-                    contactForm.reset();
-                    charCount.textContent = '0';
-                }
-            });
+            if (isValid) {
+                successMsg.textContent = 'Tu mensaje ha sido enviado exitosamente.';
+                document.getElementById('contact-form').reset();
+                charCount.textContent = '0';
+            }
         }
 
-        // ============================================
-        // LÓGICA DEL CARRUSEL HERO (JQUERY)
-        // ============================================
-        $(document).ready(function () {
-            const $track = $('.carousel-track');
-            if ($track.length) {
-                const $slides = $('.carousel-slide');
-                const $nextButton = $('.next-btn');
-                const $prevButton = $('.prev-btn');
-                const $dots = $('.dot');
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) contactForm.addEventListener('submit', validarContacto);
 
+        // ============================================
+        // LÓGICA DEL CARRUSEL HERO (JAVASCRIPT VANILLA MODULAR)
+        // ============================================
+        document.addEventListener("DOMContentLoaded", function() {
+            const track = document.querySelector('.carousel-track');
+            if (track) {
+                const slides = document.querySelectorAll('.carousel-slide');
+                const nextButton = document.querySelector('.next-btn');
+                const prevButton = document.querySelector('.prev-btn');
+                const dots = document.querySelectorAll('.dot');
                 let currentSlideIndex = 0;
                 let slideInterval;
 
-                const updateCarousel = () => {
-                    $track.css('transform', `translateX(-${currentSlideIndex * 100}%)`);
-                    $dots.removeClass('active').eq(currentSlideIndex).addClass('active');
-                };
+                // Funciones modulares
+                function actualizarDOMCarrusel() {
+                    track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+                    dots.forEach(dot => dot.classList.remove('active'));
+                    dots[currentSlideIndex].classList.add('active');
+                }
 
-                const moveToNextSlide = () => {
-                    currentSlideIndex = (currentSlideIndex + 1) % $slides.length;
-                    updateCarousel();
-                };
+                function cambiarImagenSiguiente() {
+                    currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                    actualizarDOMCarrusel();
+                }
 
-                const moveToPrevSlide = () => {
-                    currentSlideIndex = (currentSlideIndex - 1 + $slides.length) % $slides.length;
-                    updateCarousel();
-                };
+                function cambiarImagenAnterior() {
+                    currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+                    actualizarDOMCarrusel();
+                }
 
-                $nextButton.on('click', () => {
-                    moveToNextSlide();
-                    resetInterval();
+                function cambiarImagenPorIndice(index) {
+                    currentSlideIndex = index;
+                    actualizarDOMCarrusel();
+                }
+
+                nextButton.addEventListener('click', () => { cambiarImagenSiguiente(); resetInterval(); });
+                prevButton.addEventListener('click', () => { cambiarImagenAnterior(); resetInterval(); });
+                dots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        cambiarImagenPorIndice(parseInt(this.getAttribute('data-index')));
+                        resetInterval();
+                    });
                 });
 
-                $prevButton.on('click', () => {
-                    moveToPrevSlide();
-                    resetInterval();
-                });
-
-                $dots.on('click', function () {
-                    currentSlideIndex = parseInt($(this).data('index'));
-                    updateCarousel();
-                    resetInterval();
-                });
-
-                const startInterval = () => {
-                    slideInterval = setInterval(moveToNextSlide, 5000); // 5 seconds autoplay
-                };
-
-                const resetInterval = () => {
-                    clearInterval(slideInterval);
-                    startInterval();
-                };
+                const startInterval = () => slideInterval = setInterval(cambiarImagenSiguiente, 5000);
+                const resetInterval = () => { clearInterval(slideInterval); startInterval(); };
 
                 startInterval();
             }
