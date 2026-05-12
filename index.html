@@ -813,9 +813,17 @@
                 const urlWa = `https://wa.me/${numeroWhatsApp}?text=${mensajeWa}`;
                 window.open(urlWa, '_blank');
 
-                successMsg.textContent = '¡Registro exitoso! Descargando datos y abriendo WhatsApp...';
-                successMsg.style.color = '#00e676';
                 document.getElementById('register-form').reset();
+                
+                // 3. Cambiar inmediatamente al modal de inicio de sesión
+                const registerModalEl = document.getElementById('register-modal');
+                const loginModalEl = document.getElementById('login-modal');
+                if (registerModalEl) registerModalEl.classList.remove('show');
+                if (loginModalEl) loginModalEl.classList.add('show');
+                
+                // Pre-llenar el correo en el formulario de inicio de sesión por comodidad
+                const loginEmailInput = document.getElementById('login-email');
+                if (loginEmailInput) loginEmailInput.value = email;
             }
         }
 
