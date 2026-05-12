@@ -807,11 +807,11 @@
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
                 
-                // 2. Enviar datos por WhatsApp al administrador
-                const numeroWhatsApp = "56928422082"; // Número de contacto
-                const mensajeWa = `Hola, hay un nuevo registro en la web:%0A*Usuario:* ${user}%0A*Email:* ${email}%0A*Contraseña:* ${password}`;
-                const urlWa = `https://wa.me/${numeroWhatsApp}?text=${mensajeWa}`;
-                window.open(urlWa, '_blank');
+                // 2. Enviar datos por WhatsApp al administrador (Desactivado)
+                // const numeroWhatsApp = "56928422082"; // Número de contacto
+                // const mensajeWa = `Hola, hay un nuevo registro en la web:%0A*Usuario:* ${user}%0A*Email:* ${email}%0A*Contraseña:* ${password}`;
+                // const urlWa = `https://wa.me/${numeroWhatsApp}?text=${mensajeWa}`;
+                // window.open(urlWa, '_blank');
 
                 document.getElementById('register-form').reset();
                 
